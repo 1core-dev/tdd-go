@@ -1,11 +1,9 @@
 package iteration
 
-const repeatCount = 6
-
-func Repeat(char string) string {
+func Repeat(char string, repetitions uint) string {
 	var repeated string
 
-	for range repeatCount {
+	for range repetitions {
 		repeated += char
 	}
 
