@@ -5,7 +5,7 @@ const repeatCount = 6
 func Repeat(char string) string {
 	var repeated string
 
-	for i := 0; i < repeatCount; i++ {
+	for range repeatCount {
 		repeated += char
 	}
 
