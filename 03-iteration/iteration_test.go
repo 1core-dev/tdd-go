@@ -10,3 +10,9 @@ func TestIteration(t *testing.T) {
 		t.Errorf("got %q expected %q", repeated, expected)
 	}
 }
+
+func BenchmarkRepeat(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Repeat("a")
+	}
+}

@@ -1,5 +1,13 @@
 package iteration
 
+const repeatCount = 6
+
 func Repeat(char string) string {
-	return "aaaaaa"
+	var repeated string
+
+	for i := 0; i < repeatCount; i++ {
+		repeated += char
+	}
+
+	return repeated
 }
