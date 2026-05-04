@@ -1,14 +1,22 @@
 package dictionary
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSearch(t *testing.T) {
-	dict := map[string]string{"test": "test value"}
+	dict := Dictionary{"test": "test value"}
 
-	got := Search(dict, "test")
+	got := dict.Search("test")
 	want := "test value"
 
+	assertString(t, got, want)
+}
+
+func assertString(t testing.TB, got, want string) {
+	t.Helper()
+
 	if got != want {
-		t.Errorf("got %q want %q given %q", got, want, "test")
+		t.Errorf("got %q want %q", got, want)
 	}
 }
