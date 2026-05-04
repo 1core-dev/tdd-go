@@ -25,6 +25,17 @@ func TestSearch(t *testing.T) {
 	})
 }
 
+func TestAdd(t *testing.T) {
+	dict := Dictionary{}
+	dict.Add("test", "test value")
+
+	want := "test value"
+	got, err := dict.Search("test")
+
+	assertString(t, got, want)
+	assertError(t, err, nil)
+}
+
 func assertString(t testing.TB, got, want string) {
 	t.Helper()
 
