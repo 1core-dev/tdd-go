@@ -1,10 +1,20 @@
-package di
+package main
 
 import (
-	"bytes"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 )
 
-func Greet(w *bytes.Buffer, name string) {
+func Greet(w io.Writer, name string) {
 	fmt.Fprintf(w, "Hello, %s", name)
+}
+
+func GreetHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "world\n")
+}
+
+func main() {
+	log.Fatal(http.ListenAndServe(":5001", http.HandlerFunc(GreetHandler)))
 }
