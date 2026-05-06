@@ -7,8 +7,9 @@ import (
 
 func TestCountdown(t *testing.T) {
 	buf := bytes.Buffer{}
+	spySleeper := &SpySleeper{}
 
-	Countdown(&buf)
+	Countdown(&buf, spySleeper)
 
 	got := buf.String()
 	want := `3
@@ -19,4 +20,16 @@ Go!`
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}
+
+	if spySleeper.Calls != 3 {
+		t.Errorf("not enough calls, want 3 got %d", spySleeper.Calls)
+	}
+}
+
+type SpySleeper struct {
+	Calls int
+}
+
+func (s *SpySleeper) Sleep() {
+	s.Calls++
 }
