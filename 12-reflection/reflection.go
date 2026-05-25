@@ -15,6 +15,13 @@ type Profile struct {
 func walk(x any, fn func(string)) {
 	val := getValue(x)
 
+	if val.Kind() == reflect.Slice {
+		for i := range val.Len() {
+			walk(val.Index(i).Interface(), fn)
+		}
+		return
+	}
+
 	for _, field := range val.Fields() {
 		switch field.Kind() {
 		case reflect.String:
