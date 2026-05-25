@@ -13,7 +13,7 @@ type Profile struct {
 }
 
 func walk(x any, fn func(string)) {
-	val := reflect.ValueOf(x)
+	val := getValue(x)
 
 	for _, field := range val.Fields() {
 		switch field.Kind() {
@@ -23,4 +23,14 @@ func walk(x any, fn func(string)) {
 			walk(field.Interface(), fn)
 		}
 	}
+}
+
+func getValue(i any) reflect.Value {
+	val := reflect.ValueOf(i)
+
+	if val.Kind() == reflect.Pointer {
+		return val.Elem()
+	}
+
+	return val
 }
