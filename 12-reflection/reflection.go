@@ -13,19 +13,24 @@ type Profile struct {
 }
 
 func walk(x any, fn func(string)) {
+	var valuesCount int
+	var getField func(int) reflect.Value
+
 	val := getValue(x)
 
 	switch val.Kind() {
-	case reflect.Struct:
-		for _, field := range val.Fields() {
-			walk(field.Interface(), fn)
-		}
-	case reflect.Slice:
-		for i := range val.Len() {
-			walk(val.Index(i).Interface(), fn)
-		}
 	case reflect.String:
 		fn(val.String())
+	case reflect.Struct:
+		valuesCount = val.NumField()
+		getField = val.Field
+	case reflect.Slice:
+		valuesCount = val.Len()
+		getField = val.Index
+	}
+
+	for i := range valuesCount {
+		walk(getField(i).Interface(), fn)
 	}
 }
 
